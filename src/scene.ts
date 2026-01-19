@@ -1,5 +1,6 @@
 import GUI from 'lil-gui'
 import {
+  ACESFilmicToneMapping,
   AmbientLight,
   AxesHelper,
   BoxGeometry,
@@ -15,6 +16,7 @@ import {
   PointLight,
   PointLightHelper,
   Scene,
+  SRGBColorSpace,
   WebGLRenderer,
 } from 'three'
 import { DragControls } from 'three/addons/controls/DragControls.js'
@@ -56,6 +58,9 @@ function init() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = PCFSoftShadowMap
+    renderer.toneMapping = ACESFilmicToneMapping
+    renderer.toneMappingExposure = 1
+    renderer.outputColorSpace = SRGBColorSpace
     scene = new Scene()
   }
 
@@ -134,6 +139,7 @@ function init() {
     cameraControls = new OrbitControls(camera, canvas)
     cameraControls.target = cube.position.clone()
     cameraControls.enableDamping = true
+    cameraControls.dampingFactor = 0.2
     cameraControls.autoRotate = false
     cameraControls.update()
 
